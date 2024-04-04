@@ -546,17 +546,20 @@ footer {
   }
 
   .filter-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* grid-template-columns: repeat(2, 285px); */
-    gap: 20px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -20px;
   }
   .filter_block {
     margin: 0;
+    width: calc(50% - 20px);
+    min-width: 178px;
+    margin-right: 20px;
+    margin-bottom: 10px;
   }
 
   .result-number {
-    margin-top: 35px;
+    margin-top: 25px;
   }
 
   .hebergements-and-populaires {
