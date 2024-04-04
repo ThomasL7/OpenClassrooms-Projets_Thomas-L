@@ -548,14 +548,14 @@ footer {
   .filter-list {
     display: flex;
     flex-wrap: wrap;
-    margin-right: -20px;
+    margin-right: -10px;
   }
   .filter_block {
     margin: 0;
-    width: calc(50% - 20px);
+    width: calc(50% - 10px);
     min-width: 178px;
-    margin-right: 20px;
-    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
   }
 
   .result-number {
