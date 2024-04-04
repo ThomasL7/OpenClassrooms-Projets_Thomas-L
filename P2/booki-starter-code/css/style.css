@@ -2,7 +2,7 @@
   --main-color: #0065fc;
   --main-bg-color: #f2f2f2;
   --filter-bg-color: #deebff;
-  --loacation-bg-color: #f2f2f2ff;
+  --location-bg-color: #f2f2f2ff;
   --filter-border-color: #d9d9d9;
 
   --fontsize-large: 22px;
@@ -124,7 +124,7 @@ h1 {
   width: 50px;
   height: 100%;
   border-radius: 15px 0px 0px 15px;
-  background-color: var(--loacation-bg-color);
+  background-color: var(--location-bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,7 +140,7 @@ h1 {
 .research_bar form input {
   width: 195px;
   padding: 0;
-  border: 1px solid var(--loacation-bg-color);
+  border: 1px solid var(--location-bg-color);
   background-color: transparent;
   border-left: none;
   border-right: none;
@@ -406,7 +406,7 @@ h1 {
 
 /****** Footer ***********/
 footer {
-  background-color: var(--loacation-bg-color);
+  background-color: var(--location-bg-color);
   padding: 20px;
   display: flex;
   justify-content: space-between;
