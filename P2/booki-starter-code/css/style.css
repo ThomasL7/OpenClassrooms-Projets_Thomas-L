@@ -10,8 +10,6 @@
   --fontsize-normal--: 17px;
   --fontsize-small: 16px;
   --fontsize-xs: 14px;
-
-  --margin: 30px;
 }
 
 /****** General ***********/
@@ -141,6 +139,7 @@ h1 {
 }
 .research_bar form input {
   width: 195px;
+  padding: 0;
   border: 1px solid var(--loacation-bg-color);
   background-color: transparent;
   border-left: none;
