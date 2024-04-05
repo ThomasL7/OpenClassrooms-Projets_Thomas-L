@@ -37,15 +37,15 @@
       <p class="text-h1">En plein centre-ville ou en pleine nature</p>
 
       <section class="research_bar">
-        <button class="location_icon" aria-label="Localisation">
-          <i class="fa-lg fa-solid fa-location-dot"></i>
+        <button class="location_icon" aria-label="Lieu ?">
+          <i class="fa-lg fa-solid fa-location-dot" title="Saisie automatique de la localisation GPS"></i>
         </button>
         <form action="" method="get">
           <label for="city"></label>
-          <input type="text" id="city" name="city" placeholder="Entrez la ville ici" required />
+          <input type="text" id="city" name="city" placeholder="Entrez la ville ici" required aria-label="Ou entrez la ville ici"/>
           <button type="submit">
             <P>Rechercher</P>
-            <i class="fa-sm fa-solid fa-magnifying-glass"></i>
+            <i class="fa-sm fa-solid fa-magnifying-glass" Title="Rechercher"></i>
           </button>
         </form>
       </section>
@@ -54,19 +54,19 @@
         <p class="filter-title">Filtres</p>
         <div class="filter-list">
           <button class="filter_block">
-            <i class="fa-lg fa-solid fa-money-bill-wave"></i>
+            <i class="fa-lg fa-solid fa-money-bill-wave" aria-hidden="true"></i>
             <p>Économique</p>
           </button>
           <button class="filter_block">
-            <i class="fa-xl fa-solid fa-person"></i>
+            <i class="fa-xl fa-solid fa-person" aria-hidden="true"></i>
             <p>Familial</p>
           </button>
           <button class="filter_block">
-            <i class="fa-lg fa-solid fa-heart"></i>
+            <i class="fa-lg fa-solid fa-heart" aria-hidden="true"></i>
             <p>Romantique</p>
           </button>
           <button class="filter_block">
-            <i class="fa-lg fa-solid fa-fire"></i>
+            <i class="fa-lg fa-solid fa-fire" aria-hidden="true"></i>
             <p>Nos pépites</p>
           </button>
         </div>
