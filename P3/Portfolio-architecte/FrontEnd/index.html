@@ -64,15 +64,23 @@
 				<img src="./assets/icons/close.png" alt="Icône Fermer">
 				<img src="./assets/icons/previous.png" alt="Icône précédent">
 				<p class="modal-header">Galerie photo</p>
-				<div class="modal-works"></div>
+				<div class="modal-works-list">
+					<div class="modal-individual-work"></div>
+					<img src="" alt="">
+					<div class="modal-trash-block">
+						<img src="./assets/icons/trash.png" alt="">
+					</div>
+				</div>
 				<div class="modal-add-work">
 					<div><img src="./assets/icons/default-picture.png" alt="Icône d'une photo"></div>
-					<button class="button-add-photo">+ Ajouter photo</button>
+					<button class="modal-button-add-photo">+ Ajouter photo</button>
 					<p>jpg, png : 4mo max</p>
-					<label for="email">E-mail</label>
-					<input type="email" id="email-login" name="email" required>
-					<label for="password">Mot de passe</label>
-					<input type="password" id="password-login" name="password" required>
+					<label for="titre-new-work">Titre</label>
+					<input type="text" id="titre-new-work" name="titre-new-work" required>
+					<label for="cat-new-work">Catégorie</label>
+					<select name="cat-new-work">
+						<option value="1">Objets</option>
+					</select>
 				</div>
 				<div class="modal-separator"></div>
 				<button class="modal-button">Ajouter une photo</button>
