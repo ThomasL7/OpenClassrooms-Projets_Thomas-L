@@ -231,7 +231,7 @@ function modalTrashesReady() {
             workForTrash.remove();
             event.stopPropagation();
           });
-          fetch(`http://localhost:5678/api/work/${idWorkForTrash}`, {})
+          fetch(`http://localhost:5678/api/work/${idWorkForTrash}`)
             .then((response) => {
               if (!response.ok) {
                 return response.json().then((data) => {

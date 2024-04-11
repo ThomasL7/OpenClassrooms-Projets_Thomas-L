@@ -102,11 +102,24 @@ submitLogin.addEventListener("click", (event) => {
       adaptativeHomepage();
     });
 
-  // fetch("http://localhost:5678/api/secure-endpoint", {
-  //   headers: {
-  //     Authorization: `Bearer` + sessionStorage.getItem("accessToken"),
-  //   },
-  // }).catch((error) => {
-  //   console.error("Error - request login :", error);
-  // });
+  const idWorkForTrash = 1;
+  fetch("http://localhost:5678/api/works/1", {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((data) => {
+          throw new Error(`Erreur HTTP : ${data.message}`);
+        });
+      }
+      return response.json();
+    })
+
+    .catch((error) => {
+      console.error("Error - request promise :", error);
+    });
 });
+g;
