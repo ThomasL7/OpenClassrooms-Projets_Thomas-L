@@ -263,6 +263,60 @@ footer nav ul {
   margin: 2em;
 }
 
+/******************* Modal *****************/
+.modal {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  margin-top: 75px;
+  width: 33%;
+  height: 66%;
+  background-color: rgb(49, 112, 49);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-works-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px 20px;
+}
+
+.modal-individual-work {
+  position: relative;
+}
+
+.modal-img-work {
+  object-fit: contain;
+  width: 100%;
+  height: 100px;
+}
+
+.modal-trash-block {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.modal-add-photo-block-content {
+  display: flex;
+  flex-direction: column;
+}
+.modal-add-photo-default-img {
+  object-fit: contain;
+  width: 100%;
+  height: 50px;
+}
+
 /*********** Classes for JavaScript ************/
 .activeButtonFilter {
   background-color: red;
@@ -272,15 +326,4 @@ footer nav ul {
 }
 #hideIntro {
   display: none;
-}
-
-/******************* Modal *****************/
-.modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
 }

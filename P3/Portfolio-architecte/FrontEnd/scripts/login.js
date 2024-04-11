@@ -88,11 +88,7 @@ submitLogin.addEventListener("click", (event) => {
       if (!response.ok) {
         return response.json().then((data) => {
           incorrectLogin.classList.remove("hideClass");
-          throw new Error("erreur HTTP " + data.message);
-          //   if (response.status === 404) {
-          //   } else if (response.status === 401) {
-          //   } else {
-          //   }
+          throw new Error(`Erreur HTTP : ${data.message}`);
         });
       }
       incorrectLogin.classList.add("hideClass");
@@ -105,19 +101,12 @@ submitLogin.addEventListener("click", (event) => {
       connected = true;
       adaptativeHomepage();
     });
-  // // Cookie
-  // document.cookie = `accessToken=${data.token}; expires=${new Date(Date.now() + 86400000).toUTCString()}; path=/; ${window.location.protocol === "https:" ? "Secure" : ""};HttpOnly";`
 
-  fetch("http://localhost:5678/api/secure-endpoint", {
-    headers: {
-      Authorization: `Bearer` + sessionStorage.getItem("accessToken"),
-    },
-  }).catch((error) => {
-    console.error("Error - request login :", error);
-  });
+  // fetch("http://localhost:5678/api/secure-endpoint", {
+  //   headers: {
+  //     Authorization: `Bearer` + sessionStorage.getItem("accessToken"),
+  //   },
+  // }).catch((error) => {
+  //   console.error("Error - request login :", error);
+  // });
 });
-
-// GET /echo/get/json HTTP/1.1
-// Host: reqbin.com
-// Accept: application/json
-// Authorization: Bearer {token}

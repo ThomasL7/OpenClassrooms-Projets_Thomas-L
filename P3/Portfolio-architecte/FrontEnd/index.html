@@ -61,36 +61,47 @@
 		</section>
 		<aside class="modal">
 			<div class="modal-content">
-				<img src="./assets/icons/close.png" alt="Icône Fermer">
-				<img src="./assets/icons/previous.png" alt="Icône précédent">
-				<p class="modal-header">Galerie photo</p>
-				<div class="modal-works-list">
-					<div class="modal-individual-work"></div>
-					<img src="" alt="">
-					<div class="modal-trash-block">
-						<img src="./assets/icons/trash.png" alt="">
-					</div>
+				<div class="modal-window-icons">
+					<img class="modal-icon-close" src="./assets/icons/close.png" alt="Icône Fermer">
+					<img class="modal-icon-previous hideClass" src="./assets/icons/previous.png" alt="Icône précédent">
 				</div>
-				<div class="modal-add-work">
-					<div><img src="./assets/icons/default-picture.png" alt="Icône d'une photo"></div>
-					<button class="modal-button-add-photo">+ Ajouter photo</button>
-					<p>jpg, png : 4mo max</p>
-					<label for="titre-new-work">Titre</label>
-					<input type="text" id="titre-new-work" name="titre-new-work" required>
-					<label for="cat-new-work">Catégorie</label>
-					<select name="cat-new-work">
-						<option value="1">Objets</option>
-					</select>
+				<p class="modal-header-text">Galerie photo</p>
+				<div class="modal-works-list">
+					<article class="modal-individual-work">
+						<img src="" alt="">
+						<div class="modal-trash-block">
+							<img src="./assets/icons/trash.png" alt="">
+						</div>
+					</article>
+				</div>
+				<div class="modal-add-work hideClass">
+					<div class="modal-add-photo-block">
+						<div class="modal-add-photo-block-content">
+							<img class="modal-add-photo-default-img" src="./assets/icons/default-picture.png"
+								alt="Icône d'une photo">
+							<button class="modal-button-add-photo">+ Ajouter photo</button>
+							<p>jpg, png : 4mo max</p>
+						</div>
+					</div>
+					<form class="modal-add-work-form">
+						<label for="titre-new-work">Titre</label>
+						<input type="text" id="titre-new-work" name="titre-new-work" required>
+						<label for="cat-new-work">Catégorie</label>
+
+						<select name="cat-new-work">
+							<option value="1">Objets</option>
+						</select>
+					</form>
 				</div>
 				<div class="modal-separator"></div>
-				<button class="modal-button">Ajouter une photo</button>
+				<button class="modal-main-button">Ajouter une photo</button>
 			</div>
 		</aside>
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
-			<div class="modify-works hideClass">
+			<div class="modify-works">
 				<img src="./assets/icons/instagram.png" alt="Icône modifier" aria-hidden="true">
-				<a href="#">modifier</a>
+				<a id="open-modal" href="#">modifier</a>
 			</div>
 			<div class="filters"></div>
 			<div class="gallery">
