@@ -231,7 +231,12 @@ function modalTrashesReady() {
             workForTrash.remove();
             event.stopPropagation();
           });
-          fetch(`http://localhost:5678/api/work/${idWorkForTrash}`)
+          fetch(`http://localhost:5678/api/works/${idWorkForTrash}`, {
+            method: "DELETE",
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+            },
+          })
             .then((response) => {
               if (!response.ok) {
                 return response.json().then((data) => {
@@ -242,7 +247,7 @@ function modalTrashesReady() {
             })
 
             .catch((error) => {
-              console.error("Error - request promise :", error);
+              console.error("Error - request delete :", error);
             });
         }
       });

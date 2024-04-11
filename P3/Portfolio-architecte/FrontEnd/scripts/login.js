@@ -100,26 +100,9 @@ submitLogin.addEventListener("click", (event) => {
       sessionStorage.setItem("accessToken", data.token);
       connected = true;
       adaptativeHomepage();
-    });
-
-  const idWorkForTrash = 1;
-  fetch("http://localhost:5678/api/works/1", {
-    method: "DELETE",
-    headers: {
-      Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        return response.json().then((data) => {
-          throw new Error(`Erreur HTTP : ${data.message}`);
-        });
-      }
-      return response.json();
     })
 
     .catch((error) => {
-      console.error("Error - request promise :", error);
+      console.error("Error - request login :", error);
     });
 });
-g;
