@@ -597,21 +597,21 @@ footer {
   .filter-list {
     display: flex;
     flex-wrap: wrap;
-    /* margin-right: -10px; */
     gap: 20px 10px;
+    /* margin-right: -10px; */
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
   }
 
   .filter-block {
     margin: 0;
-    /* width: calc(50% - 10px);
+    width: calc(50% - 5px);
     min-width: 178px;
-    margin-right: 10px;
-    margin-bottom: 20px; */
-    flex: 1;
+    flex-grow: 1;
   }
 
   .result-number {
-    margin-top: 15px;
+    margin-top: 35px;
   }
 
   .accommodation-and-popular {

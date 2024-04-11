@@ -257,7 +257,41 @@ function modalTrashesReady() {
   });
 }
 
-// const idForTrash = event.target.parentNode.parentNode.querySelector("img");
+// Add Work Function
+const modalButtonAddImgToNewWork = document.querySelector(
+  ".modal-button-add-photo"
+);
+const modalNewWorkTitle = document.getElementById("title-new-work");
+const modalNewWorkCat = document.getElementById("cat-new-work");
+modalMainButton;
+
+const object = {
+  //'image=@abajour-tahina.png;type=image/png' \
+  //   -F 'title=Abat-jour Tahina' \
+  //   -F 'category=1'
+};
+
+fetch("http://localhost:5678/api/works", {
+  method: "POST",
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+  body: JSON.stringify(object),
+})
+  .then((response) => {
+    if (!response.ok) {
+      return response.json().then((data) => {
+        throw new Error(`Erreur HTTP : ${data.message}`);
+      });
+    }
+    return response.json();
+  })
+
+  .then((name) => {})
+
+  .catch((error) => {
+    console.error("Error - request promise :", error);
+  });
 
 // Main Adaptative Button
 modalMainButton.addEventListener("click", () => {
