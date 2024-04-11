@@ -224,13 +224,6 @@ function modalTrashesReady() {
           idWorkForTrash = classFromElementForTrash.split("id-")[1];
 
           // Delete work, modal work & server work
-          const allWorkForTrash = document.querySelectorAll(
-            `.id-${idWorkForTrash}`
-          );
-          allWorkForTrash.forEach((workForTrash) => {
-            workForTrash.remove();
-            event.stopPropagation();
-          });
           fetch(`http://localhost:5678/api/works/${idWorkForTrash}`, {
             method: "DELETE",
             headers: {
@@ -243,9 +236,18 @@ function modalTrashesReady() {
                   throw new Error(`Erreur HTTP : ${data.message}`);
                 });
               }
-              return response.json();
+              return;
             })
 
+            .then(() => {
+              const allWorkForTrash = document.querySelectorAll(
+                `.id-${idWorkForTrash}`
+              );
+              allWorkForTrash.forEach((workForTrash) => {
+                workForTrash.remove();
+                event.stopPropagation();
+              });
+            })
             .catch((error) => {
               console.error("Error - request delete :", error);
             });
