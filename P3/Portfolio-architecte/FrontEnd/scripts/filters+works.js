@@ -32,16 +32,6 @@ Promise.all([fetchFilters, fetchWorks])
     console.error("Error - request filters & works :", error);
   });
 
-// (async function requestWorks() {
-//     try {
-//      const response = await fetch("http://localhost:5678/api/works");
-//     const works = await response.json();
-// }
-//     catch (error) {
-//     console.error("Error requestWorks:", error);
-//     }
-//   })();
-
 // *************** Functions: Builds & Add HTML ***************************
 function addToHTML(contentHTML, classForInsertion) {
   const filters = document.querySelector(`.${classForInsertion}`);
@@ -166,7 +156,6 @@ openModal.addEventListener("click", (event) => {
 document.addEventListener("click", (event) => {
   if (!modalContent.contains(event.target)) {
     event.stopPropagation();
-    console.log("message");
     modal.classList.add("hideClass");
     addWorkDisplay = false;
   }
