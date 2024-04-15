@@ -106,3 +106,9 @@ submitLogin.addEventListener("click", (event) => {
       console.error("Error - request login :", error);
     });
 });
+
+//************************** Check If Access Token **************************/
+if (sessionStorage.getItem("accessToken")) {
+  connected = true;
+  adaptativeHomepage();
+}

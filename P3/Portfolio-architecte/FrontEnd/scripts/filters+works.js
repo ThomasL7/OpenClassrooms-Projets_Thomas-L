@@ -6,13 +6,9 @@ Promise.all([fetchFilters, fetchWorks])
   .then((responses) => {
     const [responseFilters, responseWorks] = responses;
     if (!responseFilters.ok || !responseWorks.ok) {
-      return Promise.all([responseFilters.json(), responseWorks.json()]).then(
-        ([dataFilters, dataWorks]) => {
-          throw new Error(
-            `Erreur HTTP - promise1: ${dataFilters.message}, promise2: ${dataWorks.message}`
-          );
-        }
-      );
+      return Promise.all([responseFilters.json(), responseWorks.json()]).then(([dataFilters, dataWorks]) => {
+        throw new Error(`Erreur HTTP - promise1: ${dataFilters.message}, promise2: ${dataWorks.message}`);
+      });
     }
     return Promise.all([responseFilters.json(), responseWorks.json()]);
   })
@@ -20,10 +16,7 @@ Promise.all([fetchFilters, fetchWorks])
   .then(([filters, works]) => {
     addToHTML(gettingJSONFiltersToHTML(filters), "filters");
     addToHTML(gettingJSONworksToHTML(works, buildWorksHTML), "gallery");
-    addToHTML(
-      gettingJSONworksToHTML(works, buildModalWorksHTML),
-      "modal-works-list"
-    );
+    addToHTML(gettingJSONworksToHTML(works, buildModalWorksHTML), "modal-works-list");
     filtersProcess();
     modalTrashesReady();
   })
@@ -48,8 +41,7 @@ function buildFiltersHTML(filterName, filterCat) {
 }
 
 function gettingJSONFiltersToHTML(JSONName) {
-  let allFiltersHTML =
-    '<button class="filters-button filterCat-0">Tous</button>';
+  let allFiltersHTML = '<button class="filters-button filterCat-0">Tous</button>';
   for (const object of JSONName) {
     const filterHTML = buildFiltersHTML(object.name, object.id);
     allFiltersHTML += filterHTML;
@@ -69,12 +61,7 @@ function buildWorksHTML(titleWork, srcImg, categoryId, id) {
 function gettingJSONworksToHTML(JSONName, whichBuildWorksHTML) {
   let allWorksHTML = "";
   for (const object of JSONName) {
-    const workHTML = whichBuildWorksHTML(
-      object.title,
-      object.imageUrl,
-      object.categoryId,
-      object.id
-    );
+    const workHTML = whichBuildWorksHTML(object.title, object.imageUrl, object.categoryId, object.id);
     allWorksHTML += workHTML;
   }
   return allWorksHTML;
@@ -138,6 +125,7 @@ function filtersProcess() {
 //************* Modify Modal ****************************
 const openModal = document.getElementById("open-modal");
 let addWorkDisplay = false;
+let mainButtonIsClicked = false;
 const modal = document.querySelector(".modal");
 const modalContent = document.querySelector(".modal-content");
 const modalIconPrevious = document.querySelector(".modal-icon-previous");
@@ -148,17 +136,19 @@ const modalAddWork = document.querySelector(".modal-add-work");
 const modalMainButton = document.querySelector(".modal-main-button");
 
 // Open & Close Modal
-
 openModal.addEventListener("click", (event) => {
   event.stopPropagation();
   modal.classList.remove("hideClass");
-});
-document.addEventListener("click", (event) => {
-  if (!modalContent.contains(event.target)) {
-    event.stopPropagation();
-    modal.classList.add("hideClass");
-    addWorkDisplay = false;
+
+  function docListenerFunc(event) {
+    if (!modalContent.contains(event.target)) {
+      modal.classList.add("hideClass");
+      addWorkDisplay = false;
+      console.log("prout");
+      document.removeEventListener("click", docListenerFunc);
+    }
   }
+  document.addEventListener("click", docListenerFunc);
 });
 
 // Close Icons
@@ -169,11 +159,12 @@ modalIconClose.addEventListener("click", () => {
 
 // Previous Icons
 function changeModalPreviousIcon() {
-  if (addWorkDisplay === true) {
+  modalIconPrevious.addEventListener("click", () => {
+    mainButtonIsClicked = false;
+    changeMainButton();
+  });
+  if (addWorkDisplay) {
     modalIconPrevious.classList.remove("hideClass");
-    modalIconPrevious.addEventListener("click", () => {
-      changeMainButton();
-    });
   } else {
     modalIconPrevious.classList.add("hideClass");
   }
@@ -181,7 +172,7 @@ function changeModalPreviousIcon() {
 
 // Adaptative Header Text
 function changeModalHeaderText() {
-  if (addWorkDisplay === true) {
+  if (addWorkDisplay) {
     modalHeaderText.textContent = "Ajout photo";
   } else {
     modalHeaderText.textContent = "Galerie photo";
@@ -190,7 +181,7 @@ function changeModalHeaderText() {
 
 // Show or Hide Wanting Content Modal
 function changeModalContent() {
-  if (addWorkDisplay === true) {
+  if (addWorkDisplay) {
     modalWorks.classList.add("hideClass");
     modalAddWork.classList.remove("hideClass");
   } else {
@@ -209,7 +200,6 @@ function buildModalWorksHTML(titleWork, srcImg, categoryId, id) {
 </article>`;
   return workHTML;
 }
-//*** See above gettingJSONworksToHTML & addToHTML functions for second part
 
 // Trash - Delete Work Function
 let idWorkForTrash;
@@ -217,7 +207,7 @@ let idWorkForTrash;
 function modalTrashesReady() {
   const trashes = document.querySelectorAll(".modal-trash-block");
   trashes.forEach((trash) => {
-    trash.addEventListener("click", (event) => {
+    trash.addEventListener("click", () => {
       const elementForTrash = event.target.parentNode.parentNode;
       elementForTrash.classList.forEach((classFromElementForTrash) => {
         if (classFromElementForTrash.startsWith("id-")) {
@@ -240,9 +230,7 @@ function modalTrashesReady() {
             })
 
             .then(() => {
-              const allWorkForTrash = document.querySelectorAll(
-                `.id-${idWorkForTrash}`
-              );
+              const allWorkForTrash = document.querySelectorAll(`.id-${idWorkForTrash}`);
               allWorkForTrash.forEach((workForTrash) => {
                 workForTrash.remove();
                 event.stopPropagation();
@@ -258,57 +246,111 @@ function modalTrashesReady() {
 }
 
 // Add Work Function
-const modalButtonAddImgToNewWork = document.querySelector(
-  ".modal-button-add-photo"
-);
-const modalNewWorkTitle = document.getElementById("title-new-work");
-const modalNewWorkCat = document.getElementById("cat-new-work");
-modalMainButton;
+function sendingWorkProcess() {
+  const modalNewWorkImg = document.getElementById("modal-photo-to-add");
+  const imageNewWork = modalNewWorkImg.files[0];
+  const modalNewWorkTitle = document.getElementById("title-new-work");
+  const titleNewWork = modalNewWorkTitle.value;
+  const newWorkCat = document.getElementById("cat-new-work").value;
+  let correctImg = false;
+  let correctTitle = false;
 
-const object = {
-  //'image=@abajour-tahina.png;type=image/png' \
-  //   -F 'title=Abat-jour Tahina' \
-  //   -F 'category=1'
-};
+  // if (!imageNewWork) {
+  //   modalNewWorkImg.classList.add("invalidClass");
+  //   correctImg = false;
+  // } else if ((imageNewWork.type !== "image/png" && imageNewWork.type !== "image/jpeg") || imageNewWork.size > 4000000) {
+  //   correctImg = false;
+  // } else {
+  //   modalNewWorkImg.classList.remove("invalidClass");
+  //   correctImg = true;
+  // }
 
-fetch("http://localhost:5678/api/works", {
-  method: "POST",
-  headers: {
-    "Content-Type": "multipart/form-data",
-  },
-  body: JSON.stringify(object),
-})
-  .then((response) => {
-    if (!response.ok) {
-      return response.json().then((data) => {
-        throw new Error(`Erreur HTTP : ${data.message}`);
-      });
-    }
-    return response.json();
+  // if (!titleNewWork) {
+  //   modalNewWorkTitle.classList.add("invalidClass");
+  //   correctTitle = false;
+  // } else {
+  //   modalNewWorkTitle.classList.remove("invalidClass");
+  //   correctTitle = true;
+  // }
+
+  // if (correctImg && correctTitle) {
+  // mainButtonIsClicked = true;
+
+  // const imageFinal = new Blob([imageNewWork], { type: "image/png" });
+  const imageFinal = new Blob([imageNewWork], { type: "image/png" });
+  console.log(imageFinal);
+  const newWork = new FormData();
+
+  newWork.append("image", imageFinal, imageFinal.name);
+  newWork.append("title", "test2");
+  newWork.append("category", 1);
+  let entryId = 1;
+  for (const [key, value] of newWork.entries()) {
+    console.log(`Clé ${entryId} : ${key}`);
+    console.log(`Type ${entryId} : ${typeof value}`);
+    console.log(``);
+    entryId++;
+  }
+
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      // "Content-Type": "multipart/form-data",
+    },
+
+    body: newWork,
+    // body: { image: imageNewWork, title: "abajour-tahina", category: 1 },
+    // body: JSON.stringify({ image: imageNewWork, title: "abajour-tahina", category: 1 }),
+    // body: { image: imageTest, title: "nifbfe", category: 1 },
+
+    // body: JSON.stringify({ image: imageTest, title: "test", category: 1 }),
+
+    // body: JSON.stringify(newWork),
   })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`${response}`);
+        // return response.json().then((data) => {
+        //   throw new Error(`${data.message}`);
+        // });
+      }
+      return response.json();
+    })
 
-  .then((name) => {})
+    .then((data) => {
+      console.log(data);
+    })
 
-  .catch((error) => {
-    console.error("Error - request promise :", error);
-  });
+    .catch((error) => {
+      console.error("Request add new work :", error);
+    });
+}
+// }
 
 // Main Adaptative Button
 modalMainButton.addEventListener("click", () => {
   changeMainButton();
 });
 function changeMainButton() {
-  if (addWorkDisplay === true) {
-    addWorkDisplay = false;
-    changeModalPreviousIcon();
-    changeModalHeaderText();
-    changeModalContent();
-    modalMainButton.textContent = "Ajouter une photo";
+  if (addWorkDisplay) {
+    if (mainButtonIsClicked) {
+      sendingWorkProcess();
+    } else {
+      addWorkDisplay = false;
+      changeModalPreviousIcon();
+      changeModalHeaderText();
+      changeModalContent();
+      modalMainButton.textContent = "Ajouter une photo";
+    }
   } else {
     addWorkDisplay = true;
     changeModalPreviousIcon();
     changeModalHeaderText();
     changeModalContent();
     modalMainButton.textContent = "Valider";
+    mainButtonIsClicked = true;
   }
 }

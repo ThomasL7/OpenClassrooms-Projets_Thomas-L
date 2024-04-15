@@ -327,3 +327,7 @@ footer nav ul {
 #hideIntro {
   display: none;
 }
+
+.invalidClass {
+  background-color: red;
+}
